@@ -32,10 +32,10 @@ display = utils.notebook_init()  # checks
 3. 
 lakukan tes awal dengan epochs 1x
 # Train YOLOv5s on COCO128 for 3 epochs
-!python train.py --img 640 --batch 16 --epochs 1 --data ../content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+!python train.py --img 640 --batch 16 --epochs 1 --data /content/yolov5/data/data.yaml --weights yolov5s.pt --cache
 
 lakukan train dengan epochs 50x
-!python train.py --img 640 --batch 16 --epochs 50 --data ../content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+!python train.py --img 640 --batch 16 --epochs 50 --data /content/yolov5/data/data.yaml --weights yolov5s.pt --cache
 
 4. 
 lakukan detect
