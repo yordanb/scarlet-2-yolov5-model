@@ -1,0 +1,50 @@
+Langkah - langkah Run YoloV5 di google-colab
+
+1. 
+!git clone https://github.com/ultralytics/yolov5  # clone
+%cd yolov5
+%pip install -qr requirements.txt comet_ml  # install
+
+import torch
+import utils
+display = utils.notebook_init()  # checks
+
+2.
+2a. ekstrak file zip model dari Roboflow
+    cut folder test, train, valid ke folder baru "scarlet2"
+    zip folder scarlet2
+    upload folder scarlet2.zip ke folder yolov5 di google-colab
+    klik kanan file scarlet2.zip pada yolov5, pilih copy path
+    tambahkan perintah !unzip "/content/scarlet2.zip" pada baris di atas perintah train 
+       # Train YOLOv5s on COCO128 for 3 epochs
+       !python train.py --img 640 --batch 16 --epochs 3 --data coco128.yaml --weights yolov5s.pt --cache
+    eksekusi perintah !unzip "/content/scarlet2.zip"
+
+2b. copy file coco128.yaml dari folder yolov5 di google-colab ke lokal laptop
+    buka file coco128.yaml dan data.yaml (roboflow) di lokal laptop menggunakan vscode
+    samakan format data.yaml seperti coco128.yaml
+    upload file data.yaml ke folder yolov5 di google-colab
+    pindahkan file data.yaml ke dalam folder yolov5/data fi google-colab
+    klik kanan data.yaml pilih copy path
+    ubah : !python train.py --img 640 --batch 16 --epochs 3 --data coco128.yaml --weights yolov5s.pt --cache
+    menjadi : !python train.py --img 640 --batch 16 --epochs 3 --data /content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+    
+3. 
+lakukan tes awal dengan epochs 1x
+# Train YOLOv5s on COCO128 for 3 epochs
+!python train.py --img 640 --batch 16 --epochs 1 --data ../content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+
+lakukan train dengan epochs 50x
+!python train.py --img 640 --batch 16 --epochs 50 --data ../content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+
+4. 
+lakukan detect
+pindah ke bagian kode detect, copy path best.pt hasil train di atas
+ubah kode detect : 
+   !python detect.py --weights yolov5s.pt --img 640 --conf 0.25 --source data/images
+   # display.Image(filename='runs/detect/exp/zidane.jpg', width=600)
+menjadi : 
+   !python detect.py --weights /content/yolov5/runs/train/exp4/weights/best.pt --img 640 --conf 0.25 --source data/images 
+
+
+
